@@ -1,12 +1,17 @@
 # Exercise 1: reading and querying a web API
 
+#This means that the data from the table has now become a list with the $ sign
+#Answer should come out as true since it's a list, becomes a data frame now 
+
 # Load the httr and jsonlite libraries for accessing data
 # You can also load `dplyr` if you wish to use it
-
+install.packages("httr")
+library("httr")
 
 # Create a variable base_uri that stores the base URI (as a string) for the 
 # Github API (https://api.github.com)
-
+url <- "https://api.github.com/users/saejinm/repos"
+response <- GET(url)
 
 # Under the "Repositories" category of the API documentation, find the endpoint 
 # that will list _repos in an organization_. Then create a variable named
@@ -21,10 +26,15 @@
 
 # Extract the content of the response using the `content()` function, saving it
 # in a variable.
-
+response <- GET(uri)
+print(responses)
+body <- content(response, "text")
+print(body)
 
 # Convert the content variable from a JSON string into a data frame.
-
+data(fromJSON(body))
+print(data)
+data[[+1]]
 
 # How many (public) repositories does the organization have?
 
@@ -45,11 +55,18 @@
 
 # Extract the content of the response and convert it from a JSON string into a
 # data frame. 
-
+content <- data$content
+is.data.frame(content)
 
 # How many search repos did your search find? (Hint: check the list names to 
 # find an appropriate value).
 
 
 # What are the full names of the top 5 repos in the search results?
+top_5 <- data %>% 
+  filter(category == "full names") %>% 
+  group_by(category) %>% 
+  top_n(5) 
+print(top_5)
+
 
