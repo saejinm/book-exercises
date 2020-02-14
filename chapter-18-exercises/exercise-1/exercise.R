@@ -47,8 +47,12 @@ data <- fromJSON(body)
 # Manually inspect the returned data and identify the content of interest 
 # (which are the movie reviews).
 # Use functions such as `names()`, `str()`, et
+names(body)
+names(body$resutls)
+
 
 # Flatten the movie reviews content into a data structure called `reviews`
+reviews <- flatten(body$results)
 
 
 # From the most recent review, store the headline, short summary, and link to
